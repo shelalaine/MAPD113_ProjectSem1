@@ -1,0 +1,19 @@
+{
+  "name": "patient_api",
+  "version": "1.0.0",
+  "description": "REST API - Patients",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "patient"
+  ],
+  "dependencies": {
+    "restify": "latest",
+    "mongoose": "latest"
+  },
+  "author": "Shelalaine Chan",
+  "license": "ISC"
+}
