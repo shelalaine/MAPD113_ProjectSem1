@@ -16,57 +16,68 @@ var patientSchema = new schema({
         zipCode:        String        
     },
     contact: {
-        phone:          String,
-        email:          String
+        phone:                  String,
+        email:                  String,
+        emergencyContactName:   String,
+        emergencyContactNumber: String
     },
     gender:             Boolean,
     weight:             Number,
     height:             Number,
     bloodType:          String,
+    occupation:         String,
     maritalStatus:      Boolean,
     condition:          String,
     admissionDate:      String,
     dischargedDate:     String,
+    room:               Number,
     insurance: {
         name:           String,
         expiryDate:     String
     },
     allergies:          [String],
     drNotes:    [{
-        date:           String,
-        notes:          String,
-        drName:         String
+        date:               String,
+        notes:              String,
+        diagnosedByName:    String
     }],
-    tests: [{
-        date:           String,
-        drName:         String,
-        type:           String, 
-        sampleTakenDate: String,
-        testResult:        String
+    labTests: [{
+        requestDate:        String,
+        requestedByName:    String,
+        type:               String, 
+        sampleTakenDate:    String,
+        sampleTakenByName:  String,
+        imageResult:        String,
+        status:             String
     }],
     prescriptions:  [{
         date:           String,
         medicineName:   String,
         dosage:         String,
         frequency:      String,
-        duration:       Number,
-        drName:         String  
+        duration:       String,
+        prescribedByName:   String  
     }],
     vitals:     [{
-        date:           String,
-        nurseName:      String,
-        systolic:       Number,
-        diastolic:      Number,
-        heartRate:      Number,
-        temperature:    Number      
+        date:               String,
+        takenByName:        String,
+        systolic:           Number,
+        diastolic:          Number,
+        heartRate:          Number,
+        temperature:        Number,
+        respirationRate:    Number      
     }],
     doctors:    [{
         id:             String,
-        name:           String
+        name:           String,
+        gender:         String,
+        specialty:      String
     }],
     nurses:     [{
         id:             String,
-        name:           String
+        name:           String, 
+        gender:         String,
+        floor:          Number
     }],
 }, {autoIndex: false});
 
