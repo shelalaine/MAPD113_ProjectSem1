@@ -14,7 +14,10 @@ server.listen(config.port, config.host, function(){
     console.log('/patients/:id');
     console.log('/patients/:id_p/vitals');
     console.log('/patients/:id_p/prescriptions');
-    // console.log('/patients/:id_p/tests');
+    console.log('/patients/:id_p/tests');
+    console.log('/patients/:id_p/notes');
+    console.log('/patients/:id_p/doctors');
+    console.log('/patients/:id_p/nurses');
 });
 
 // Allow the use of POST

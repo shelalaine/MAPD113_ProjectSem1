@@ -44,7 +44,7 @@ var patientSchema = new schema({
     labTests: [{
         requestDate:        String,
         requestedByName:    String,
-        type:               String, 
+        testType:           String,
         sampleTakenDate:    String,
         sampleTakenByName:  String,
         imageResult:        String,

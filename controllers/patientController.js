@@ -119,32 +119,108 @@ function patientController() {
     }
 
     // Add laboratory test
-    /*
     this.addTest = function(req, res, next) {
         Patient.findById(req.params.id_p, function(err, patient){
             if (err) {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.tests.push({
-                    date: req.params.date,
-                    drName: req.params.drName,
-                    type: req.params.type,
+                patient.labTests.push({
+                    requestDate: req.params.requestDate,
+                    requestedByName: req.params.requestedByName,
+                    testType: req.params.testType,
                     sampleTakenDate: req.params.sampleTakenDate,
-                    testResult: req.params.testResult
+                    sampleTakenByName: req.params.sampleTakenByName,
+                    imageResult: req.params.imageResult,
+                    status: req.params.status 
                 }); 
 
-                patient.save(function(err, data){
+                patient.save(function(err, result){
                     if (err) {
                         console.log(err);
                         return res.send({'error': err});
                     } else {
-                        return res.send({"tests": data.tests});
+                        return res.send({"labTests": result.labTests});
                     }
                 })
             }
         });
-    } */
+    }
+
+    // Add Doctor notes
+    this.addNotes = function(req, res, next) {
+        Patient.findById(req.params.id_p, function(err, patient){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
+            } else {
+                patient.drNotes.push({
+                    date: req.params.date,
+                    notes: req.params.notes,
+                    diagnosedByName: req.params.diagnosedByName
+                }); 
+
+                patient.save(function(err, result){
+                    if (err) {
+                        console.log(err);
+                        return res.send({'error': err});
+                    } else {
+                        return res.send({"drNotes": result.drNotes});
+                    }
+                })
+            }
+        });
+    }
+
+    // Add a new doctor assigned to the patient
+    this.addDoctors = function(req, res, next) {
+        Patient.findById(req.params.id_p, function(err, patient){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
+            } else {
+                patient.doctors.push({
+                    name: req.params.name,
+                    gender: req.params.gender,
+                    specialty: req.params.specialty
+                }); 
+
+                patient.save(function(err, result){
+                    if (err) {
+                        console.log(err);
+                        return res.send({'error': err});
+                    } else {
+                        return res.send({"doctors": result.doctors});
+                    }
+                })
+            }
+        });
+    }
+
+    // Add a new nurse assigned to the patient
+    this.addNurses = function(req, res, next) {
+        Patient.findById(req.params.id_p, function(err, patient){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
+            } else {
+                patient.nurses.push({
+                    name: req.params.name,
+                    gender: req.params.gender,
+                    gender: req.params.gender
+                }); 
+
+                patient.save(function(err, result){
+                    if (err) {
+                        console.log(err);
+                        return res.send({'error': err});
+                    } else {
+                        return res.send({"nurses": result.nurses});
+                    }
+                })
+            }
+        });
+    }
 
     // Fetch all patients
     this.getPatients = function(req, res, next) {
