@@ -60,7 +60,6 @@ function patientController() {
         });
     };
 
-
     // Add patient vitals
     this.addVitals = function(req, res, next) {
         Patient.findById(req.params.id_p, function(err, patient){
@@ -256,6 +255,43 @@ function patientController() {
             }
 
             return res.send('Patient is deleted');
+        });
+    }
+
+    // Delete a patient's test/vitals/prescription/note/doctor/nurse by Id
+    this.deletePatientChildById = function(req, res, next) {
+        Patient.findById(req.params.id_p, function(err, patient){
+            if (err) {
+                console.log(err);
+                return res.send(404, {'error': err});
+            }
+            switch (req.params.id_record) {
+                case "tests":
+                    patient.labTests.pull({_id: req.params.id_t});
+                    break;
+                case "vitals":
+                    patient.vitals.pull({_id: req.params.id_t});
+                    break;
+                case "prescriptions":
+                    patient.prescriptions.pull({_id: req.params.id_t});
+                    break;
+                case "notes":
+                    patient.notes.pull({_id: req.params.id_t});
+                    break;
+                case "doctors":
+                    patient.doctors.pull({_id: req.params.id_t});
+                    break;
+                case "nurses":
+                    patient.nurses.pull({_id: req.params.id_t});
+                    break;
+                default:
+                    return res.send(404, {'error': 'Not supported'});
+            }
+            
+            patient.save(function (err) {
+                if (err) return handleError(err);
+                return res.send('The ' + req.params.id_record + ' sub-doc was removed')
+            });
         });
     }
 
