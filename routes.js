@@ -2,7 +2,7 @@ module.exports = function(server) {
     var patient = require('./controllers/patientController');
 
     server.get('/', function(req, res, next){
-        return res.send("WELCOME TO THE PATIENT REST API");
+        return res.send("HEALTHMATIC'S PATIENT REST API");
     });
 
 
@@ -35,4 +35,7 @@ module.exports = function(server) {
 
     // Delete Patient by ID API
     server.del('/patients/:id', patient.deletePatientById);
+
+    // Delete Patient's test/note/vitals/prescription by ID API
+    server.del('/patients/:id_p/:id_record/:id_t', patient.deletePatientChildById);
 };
