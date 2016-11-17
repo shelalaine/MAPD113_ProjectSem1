@@ -28,8 +28,8 @@ function patientController() {
             contact: {
                 phone: req.params.contact.phone,
                 email: req.params.contact.email, 
-                emergencyContactName: req.params.emergencyContactName,
-                emergencyContactNumber: req.params.emergencyContactNumber
+                emergencyContactName: req.params.contact.emergencyContactName,
+                emergencyContactNumber: req.params.contact.emergencyContactNumber
             },
             gender: req.params.gender,
             weight: req.params.weight,
@@ -45,9 +45,7 @@ function patientController() {
                 name: req.params.insurance.name,
                 expiryDate: req.params.insurance.expiryDate
             },
-            allergies: {
-
-            }
+            allergies: req.params.allergies
         });
 
         patient.save(function(err, patient){
