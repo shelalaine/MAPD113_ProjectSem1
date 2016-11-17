@@ -229,14 +229,14 @@ function patientController() {
                 return res.send({'error': err});
             }
 
-            return res.send(patients);
+            return res.send({"patients": patients});
         });
     }
 
 
     // Fetch patient by Id
     this.getPatientById = function(req, res, next) {
-        Patient.findById(req.params.id, function(err, patient){
+        Patient.findById(req.params.id_p, function(err, patient){
             if (err) {
                 console.log(err);
                 return res.send(404, {'error': err});
@@ -248,7 +248,7 @@ function patientController() {
 
     // Delete a patient by Id
     this.deletePatientById = function(req, res, next) {
-        Patient.findByIdAndRemove(req.params.id, function(err){
+        Patient.findByIdAndRemove(req.params.id_p, function(err){
             if (err) {
                 console.log(err);
                 return res.send({'error': err});
@@ -265,24 +265,24 @@ function patientController() {
                 console.log(err);
                 return res.send(404, {'error': err});
             }
-            switch (req.params.id_record) {
+            switch (req.params.record_type) {
                 case "tests":
-                    patient.labTests.pull({_id: req.params.id_t});
+                    patient.labTests.pull({_id: req.params.id_r});
                     break;
                 case "vitals":
-                    patient.vitals.pull({_id: req.params.id_t});
+                    patient.vitals.pull({_id: req.params.id_r});
                     break;
                 case "prescriptions":
-                    patient.prescriptions.pull({_id: req.params.id_t});
+                    patient.prescriptions.pull({_id: req.params.id_r});
                     break;
                 case "notes":
-                    patient.notes.pull({_id: req.params.id_t});
+                    patient.notes.pull({_id: req.params.id_r});
                     break;
                 case "doctors":
-                    patient.doctors.pull({_id: req.params.id_t});
+                    patient.doctors.pull({_id: req.params.id_r});
                     break;
                 case "nurses":
-                    patient.nurses.pull({_id: req.params.id_t});
+                    patient.nurses.pull({_id: req.params.id_r});
                     break;
                 default:
                     return res.send(404, {'error': 'Not supported'});
@@ -290,7 +290,7 @@ function patientController() {
             
             patient.save(function (err) {
                 if (err) return handleError(err);
-                return res.send('The ' + req.params.id_record + ' sub-doc was removed')
+                return res.send('The ' + req.params.record_type + ' sub-doc was removed')
             });
         });
     }
