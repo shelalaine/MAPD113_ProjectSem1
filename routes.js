@@ -31,11 +31,11 @@ module.exports = function(server) {
     server.get('/patients', patient.getPatients);
 
     // Get Patient by ID API
-    server.get('/patients/:id', patient.getPatientById); 
+    server.get('/patients/:id_p', patient.getPatientById); 
 
     // Delete Patient by ID API
-    server.del('/patients/:id', patient.deletePatientById);
+    server.del('/patients/:id_p', patient.deletePatientById);
 
-    // Delete Patient's test/note/vitals/prescription by ID API
-    server.del('/patients/:id_p/:id_record/:id_t', patient.deletePatientChildById);
+    // Delete Patient's test/note/vitals/prescription/nurse/doctor by ID API
+    server.del('/patients/:id_p/:record_type/:id_r', patient.deletePatientChildById);
 };
