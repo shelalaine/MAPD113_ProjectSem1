@@ -27,19 +27,26 @@ function patientController() {
             },
             contact: {
                 phone: req.params.contact.phone,
-                email: req.params.contact.email
+                email: req.params.contact.email, 
+                emergencyContactName: req.params.emergencyContactName,
+                emergencyContactNumber: req.params.emergencyContactNumber
             },
             gender: req.params.gender,
             weight: req.params.weight,
             height: req.params.height,
+            occupation: req.params.occupation,
             bloodType: req.params.bloodType,
             maritalStatus: req.params.maritalStatus,
             condition: req.params.condition,
             admissionDate: req.params.admissionDate,
             dischargedDate: req.params.dischargedDate,
+            room: req.params.room,
             insurance: {
                 name: req.params.insurance.name,
                 expiryDate: req.params.insurance.expiryDate
+            },
+            allergies: {
+
             }
         });
 
@@ -63,11 +70,12 @@ function patientController() {
             } else {
                 patient.vitals.push({
                     date: req.params.date,
-                    nurseName: req.params.nurseName,
+                    takenByName: req.params.takenByName,
                     systolic: req.params.systolic,
                     diastolic: req.params.diastolic,
                     heartRate: req.params.heartRate,
-                    temperature: req.params.temperature 
+                    temperature: req.params.temperature,
+                    respirationRate: req.params.respirationRate
                 }); 
 
                 patient.save(function(err, result){
@@ -95,7 +103,7 @@ function patientController() {
                     dosage: req.params.dosage,
                     frequency: req.params.frequency,
                     duration: req.params.duration,
-                    drName: req.params.drName 
+                    prescribedByName: req.params.prescribedByName 
                 }); 
 
                 patient.save(function(err, result){
