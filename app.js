@@ -7,7 +7,8 @@ var config = require('./config');
 var server = restify.createServer({name: config.serverName, version: config.version});
 
 // Setup listener
-server.listen(config.port, config.host, function(){
+// server.listen(config.port, config.host, function(){
+server.listen(config.port, function(){
     console.log('Server %s listening at %s', config.serverName, server.url);
     console.log('Resources:');
     console.log('/patients');
