@@ -13,7 +13,7 @@ module.exports = function(server) {
     server.put('/patients/:id_p/vitals', patient.addVitals);
 
     // Add new prescription record of a Patient by ID API
-    server.put('/patients/:id_p/precriptions', patient.addPrescription);
+    server.put('/patients/:id_p/prescriptions', patient.addPrescription);
 
     // Add new laboratory test of a Patient by ID API
     // server.put('/patients/:id_p/tests', patient.addTest);
