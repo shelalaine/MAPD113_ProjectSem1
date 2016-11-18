@@ -38,6 +38,7 @@ server.use(restify.bodyParser());
 // Define the mongoose connection
 var mongoose = require('mongoose');
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.dbPath);
 var db = mongoose.connection;
 

@@ -232,7 +232,6 @@ function patientController() {
         });
     }
 
-
     // Fetch patient by Id
     this.getPatientById = function(req, res, next) {
         Patient.findById(req.params.id_p, function(err, patient){
@@ -292,6 +291,58 @@ function patientController() {
                 return res.send('The ' + req.params.record_type + ' sub-doc was removed')
             });
         });
+    }
+
+    this.updatePatient = function(req, res, next){
+
+        var patient = new Patient({
+            firstName: req.params.firstName, 
+            lastName: req.params.lastName,
+            birthday: req.params.birthday,
+            address: {
+                street: req.params.address.street, 
+                city: req.params.address.city, 
+                province: req.params.address.province,
+                zipCode: req.params.address.zipCode 
+            },
+            contact: {
+                phone: req.params.contact.phone,
+                email: req.params.contact.email, 
+                emergencyContactName: req.params.contact.emergencyContactName,
+                emergencyContactNumber: req.params.contact.emergencyContactNumber
+            },
+            gender: req.params.gender,
+            weight: req.params.weight,
+            height: req.params.height,
+            occupation: req.params.occupation,
+            bloodType: req.params.bloodType,
+            maritalStatus: req.params.maritalStatus,
+            condition: req.params.condition,
+            admissionDate: req.params.admissionDate,
+            dischargedDate: req.params.dischargedDate,
+            room: req.params.room,
+            insurance: {
+                name: req.params.insurance.name,
+                expiryDate: req.params.insurance.expiryDate
+            },
+            allergies: req.params.allergies
+        });
+
+         Patient.findByIdAndRemove(req.params._id, function(err){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
+            }
+
+            patient.save(function(err, patient){
+                if(err){
+                    console.log(err);
+                    return res.send(501, {'error': err});
+                }
+                return res.send(patient);
+            });
+        });
+        
     }
 
     return this;

@@ -38,4 +38,7 @@ module.exports = function(server) {
 
     // Delete Patient's test/note/vitals/prescription/nurse/doctor by ID API
     server.del('/patients/:id_p/:record_type/:id_r', patient.deletePatientChildById);
+
+    // Update Patient's profile API
+    server.put('/patients', patient.updatePatient);
 };
