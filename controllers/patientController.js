@@ -227,7 +227,8 @@ function patientController() {
                 return res.send({'error': err});
             }
 
-            return res.send({"patients": patients});
+            // return res.send({"patients": patients});
+            return res.send(patients);
         });
     }
 
