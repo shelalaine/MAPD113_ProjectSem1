@@ -27,6 +27,7 @@ var patientSchema = new schema({
     bloodType:          String,
     occupation:         String,
     maritalStatus:      Boolean,
+    photo:              String,
     condition:          String,
     admissionDate:      String,
     dischargedDate:     String,

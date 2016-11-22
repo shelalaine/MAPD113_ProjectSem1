@@ -25,6 +25,12 @@ server.listen(config.port, function(){
     console.log('/patients/:id_p/notes/:id_r');
     console.log('/patients/:id_p/doctors/:id_r');
     console.log('/patients/:id_p/nurses/:id_r');
+    console.log('');
+    console.log('/staff');
+    console.log('/staff/:_id_s');
+    console.log('/staff/:_id_s/patients');
+    console.log('/staff/:_id_s/patients/:_id_r');
+    console.log('');
     console.log('Where:');
     console.log(":id_p --> Patient's id");
     console.log(":id_r --> Patient record's id");

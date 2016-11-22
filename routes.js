@@ -1,5 +1,6 @@
 module.exports = function(server) {
     var patient = require('./controllers/patientController');
+    var staff = require('./controllers/staffController');
 
     server.get('/', function(req, res, next){
         return res.send("HEALTHMATIC'S PATIENT REST API");
@@ -40,5 +41,21 @@ module.exports = function(server) {
     server.del('/patients/:id_p/:record_type/:id_r', patient.deletePatientChildById);
 
     // Update Patient's profile API
-    server.put('/patients', patient.updatePatient);
+    server.put('/patients/:id_p', patient.updatePatient);
+
+
+    // Create the Staff API
+    server.post('/staffs', staff.createStaff);
+
+    // Get all Staff API
+    server.get('/staffs', staff.getStaffs);
+
+    // Get Staff by ID API
+    server.get('/staffs/:id_s', staff.getStaffById); 
+
+    // Update the Staff API
+    server.put('/staffs/:id_s', staff.updateStaff);
+
+    // Delete Staff by ID API
+    server.del('/staffs/:id_s', staff.deleteStaffById);
 };
