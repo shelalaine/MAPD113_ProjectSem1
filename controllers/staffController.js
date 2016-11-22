@@ -48,8 +48,8 @@ function staffController() {
                 return res.send({'error': err});
             }
 
-            return res.send({"staffs": staffs});
-            // return res.send(staffs);
+            // return res.send({"staffs": staffs});
+            return res.send(staffs);
         });
     }
 
