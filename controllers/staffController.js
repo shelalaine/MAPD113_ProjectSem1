@@ -5,6 +5,7 @@
 function staffController() {
 
     var Staff = require('../models/staff');
+    var Patient = require('../models/patient');
 
     // Create new staff
     this.createStaff = function(req, res, next){
@@ -74,6 +75,33 @@ function staffController() {
             }
 
             return res.send('Staff is deleted');
+        });
+    }
+
+    function getPatients(patients, patientsRef, count, res) {
+        if (count >= patientsRef.length) {
+            return res.send(patients);
+        }
+        Patient.findById(patientsRef[count].patientId, function (err, patient){
+            if (err) {
+                return res.send({'error': err});
+            } 
+            count++;
+            patients.push(patient);
+            getPatients(patients, patientsRef, count, res);
+        });
+    }
+
+    
+    // Get all assigned patients to the staff API
+    this.getPatientsOfStaff = function(req, res, next) {
+
+        Staff.findById(req.params.id_s, function(err, staff){
+            if (err) {
+                console.log(err);
+                return res.send(404, {'error': err});
+            }
+            getPatients([], staff.patients, 0, res);
         });
     }
 

@@ -58,4 +58,7 @@ module.exports = function(server) {
 
     // Delete Staff by ID API
     server.del('/staffs/:id_s', staff.deleteStaffById);
+
+    // Get all assigned patients to the staff API
+    server.get('staffs/:id_s/patients', staff.getPatientsOfStaff);
 };
