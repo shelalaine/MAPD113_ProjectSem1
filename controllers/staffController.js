@@ -54,6 +54,49 @@ function staffController() {
         });
     }
 
+    //Fetch all Doctors
+    this.getDoctors = function(req, res, next){
+        Staff.find({}, function(err, staffs){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
+            }
+            if(staffs){
+                var doctors = []
+                var staff
+                for (i = 0; i < staffs.length; i++) {
+                    staff = staffs[i]
+                    if(staff.role == "doctor"){
+                        doctors.push(staff)
+                    }
+                }
+                
+            }
+            return res.send(doctors);
+        });
+    }
+
+    //Fetch all Nurses
+    this.getNurses = function(req, res, next){
+        Staff.find({}, function(err, staffs){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
+            }
+            if(staffs){
+                var nurses = []
+                var staff
+                for (i = 0; i < staffs.length; i++) {
+                    staff = staffs[i]
+                    if(staff.role == "nurse"){
+                        nurses.push(staff)
+                    }
+                }
+            }
+            return res.send(nurses);
+        });
+    }
+
     // Fetch staff by Id
     this.getStaffById = function(req, res, next) {
         Staff.findById(req.params.id_s, function(err, staff){
