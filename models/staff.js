@@ -9,6 +9,8 @@ var staffSchema = new schema({
     firstName:          String,
     lastName:           String,
     username:           String,
+    password:           String,
+    fingerKey:          String,
     birthday:           String,
     gender:             Boolean,
     maritalStatus:      Boolean,

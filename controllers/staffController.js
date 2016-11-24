@@ -5,7 +5,29 @@
 function staffController() {
 
     var Staff = require('../models/staff');
+    var Login = require('../models/login');
     var Patient = require('../models/patient');
+
+    //Login with username and password and return Staff object
+    this.login = function(req, res, next){
+            var login = new Login(req.params);
+            console.log(login);
+            Staff.findOne({ 'username': login.username, 'password': login.password }, function (err, staff) {
+            if (err){
+                return handleError(err);
+            }
+            if(staff){
+                console.log('%s %s is a %s.', staff.firstName, staff.lastName, staff.firstName) // Space Ghost is a talk show host.
+            }                
+            return res.send(200, staff);
+        })
+    }
+
+    //Login with username and password and return Staff object
+    this.loginSamsung = function(req, res, next){
+
+    }
+
 
     // Create new staff
     this.createStaff = function(req, res, next){
