@@ -12,6 +12,12 @@ function staffController() {
     this.login = function(req, res, next){
             var login = new Login(req.params);
             console.log(login);
+            if(login.username == undefined){
+                return res.send(400, {'error':'Username must be supplied'});
+            }
+            if(login.password == undefined){
+                return res.send(400, 'Password must be supplied');
+            }
             Staff.findOne({ 'username': login.username, 'password': login.password }, function (err, staff) {
             if (err){
                 return handleError(err);
