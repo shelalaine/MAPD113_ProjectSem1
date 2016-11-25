@@ -28,14 +28,10 @@ var staffSchema = new schema({
         phone:          String,
         email:          String
     },
-    patientRefs: [{
+    patients: [{
         patientId:     String,
         checkupDates:  [String]
-    }],
-    patient: [{
-        patientId:     String
     }]
-
 }, {autoIndex: false});
 
 // Create a Staff model
