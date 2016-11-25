@@ -17,7 +17,7 @@ var staffSchema = new schema({
     role:               String, 
     floor:              String,
     specialty:          [String],
-    photo:              String, 
+    imageName:          String, 
     address: {
         street:         String, 
         city:           String, 
@@ -28,10 +28,14 @@ var staffSchema = new schema({
         phone:          String,
         email:          String
     },
-    patients: [{
+    patientRefs: [{
         patientId:     String,
         checkupDates:  [String]
+    }],
+    patient: [{
+        patientId:     String
     }]
+
 }, {autoIndex: false});
 
 // Create a Staff model
