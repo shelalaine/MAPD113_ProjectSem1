@@ -28,7 +28,7 @@ var staffSchema = new schema({
         phone:          String,
         email:          String
     },
-    patients: [{
+    patientRefs: [{
         patientId:     String,
         checkupDates:  [String]
     }]
