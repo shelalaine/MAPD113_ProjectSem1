@@ -172,7 +172,7 @@ function staffController() {
                 console.log(err);
                 return res.send(404, {'error': err});
             }
-            getPatients([], staff.patients, 0, res);
+            getPatients([], staff.patientRefs, 0, res);
         });
     }
 
