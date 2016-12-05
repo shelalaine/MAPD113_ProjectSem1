@@ -36,3 +36,27 @@ APIs supported are as follows:
 11. Delete Patient's test/note/vitals/prescription/nurse/doctor by ID API
 12. Update Patient's profile by ID
 
+Version 1.2.0
+APIs supported are as follows:
+
+1. Create patient
+2. Get all patients
+3. Get patient by ID
+4. Delete patient by ID
+5. Add new vital record of a patient by ID
+6. Add new prescription record of a patient by ID
+7. Add new lab test record of a patient by ID
+8. Add new nurse assigned to the patient by ID
+9. Add new doctor assigned to the patient by ID
+10. Add new doctor notes to the patient by ID
+11. Delete Patient's test/note/vitals/prescription/nurse/doctor by ID API
+12. Update Patient's profile by ID
+13. Create staff
+14. Get all staffs (e.g. doctors, nurses, etc.)
+15. Get all doctor staffs
+16. Get all nurse staffs
+17. Get staff by ID
+18. Update staff
+19. Delete staff
+20. Get all assigned patients to a staff
+21. Create login
