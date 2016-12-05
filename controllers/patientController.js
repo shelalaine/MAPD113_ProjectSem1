@@ -31,6 +31,7 @@ function patientController() {
                 emergencyContactName: req.params.contact.emergencyContactName,
                 emergencyContactNumber: req.params.contact.emergencyContactNumber
             },
+            imageName: req.params.imageName, 
             gender: req.params.gender,
             weight: req.params.weight,
             height: req.params.height,

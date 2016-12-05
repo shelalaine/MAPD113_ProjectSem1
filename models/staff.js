@@ -9,13 +9,15 @@ var staffSchema = new schema({
     firstName:          String,
     lastName:           String,
     username:           String,
+    password:           String,
+    fingerKey:          String,
     birthday:           String,
     gender:             Boolean,
     maritalStatus:      Boolean,
     role:               String, 
     floor:              String,
     specialty:          [String],
-    photo:              String, 
+    imageName:          String, 
     address: {
         street:         String, 
         city:           String, 
@@ -26,7 +28,7 @@ var staffSchema = new schema({
         phone:          String,
         email:          String
     },
-    patients: [{
+    patientRefs: [{
         patientId:     String,
         checkupDates:  [String]
     }]

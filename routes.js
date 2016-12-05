@@ -50,6 +50,12 @@ module.exports = function(server) {
     // Get all Staff API
     server.get('/staffs', staff.getStaffs);
 
+    // Get all Doctor API
+    server.get('/doctors', staff.getDoctors);
+
+     // Get all Nurse API
+    server.get('/nurses', staff.getNurses);
+
     // Get Staff by ID API
     server.get('/staffs/:id_s', staff.getStaffById); 
 
@@ -61,4 +67,7 @@ module.exports = function(server) {
 
     // Get all assigned patients to the staff API
     server.get('staffs/:id_s/patients', staff.getPatientsOfStaff);
+
+    // Login
+    server.post('/login', staff.login);
 };

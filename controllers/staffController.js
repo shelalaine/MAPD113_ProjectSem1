@@ -5,7 +5,35 @@
 function staffController() {
 
     var Staff = require('../models/staff');
+    var Login = require('../models/login');
     var Patient = require('../models/patient');
+
+    //Login with username and password and return Staff object
+    this.login = function(req, res, next){
+            var login = new Login(req.params);
+            console.log(login);
+            if(login.username == undefined){
+                return res.send(400, {'error':'Username must be supplied'});
+            }
+            if(login.password == undefined){
+                return res.send(400, 'Password must be supplied');
+            }
+            Staff.findOne({ 'username': login.username, 'password': login.password }, function (err, staff) {
+            if (err){
+                return handleError(err);
+            }
+            if(staff){
+                console.log('%s %s is a %s.', staff.firstName, staff.lastName, staff.firstName) // Space Ghost is a talk show host.
+            }                
+            return res.send(200, staff);
+        })
+    }
+
+    //Login with username and password and return Staff object
+    this.loginSamsung = function(req, res, next){
+
+    }
+
 
     // Create new staff
     this.createStaff = function(req, res, next){
@@ -51,6 +79,49 @@ function staffController() {
 
             // return res.send({"staffs": staffs});
             return res.send(staffs);
+        });
+    }
+
+    //Fetch all Doctors
+    this.getDoctors = function(req, res, next){
+        Staff.find({}, function(err, staffs){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
+            }
+            if(staffs){
+                var doctors = []
+                var staff
+                for (i = 0; i < staffs.length; i++) {
+                    staff = staffs[i]
+                    if(staff.role == "doctor"){
+                        doctors.push(staff)
+                    }
+                }
+                
+            }
+            return res.send(doctors);
+        });
+    }
+
+    //Fetch all Nurses
+    this.getNurses = function(req, res, next){
+        Staff.find({}, function(err, staffs){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
+            }
+            if(staffs){
+                var nurses = []
+                var staff
+                for (i = 0; i < staffs.length; i++) {
+                    staff = staffs[i]
+                    if(staff.role == "nurse"){
+                        nurses.push(staff)
+                    }
+                }
+            }
+            return res.send(nurses);
         });
     }
 
@@ -101,7 +172,7 @@ function staffController() {
                 console.log(err);
                 return res.send(404, {'error': err});
             }
-            getPatients([], staff.patients, 0, res);
+            getPatients([], staff.patientRefs, 0, res);
         });
     }
 
