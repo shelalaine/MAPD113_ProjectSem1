@@ -66,7 +66,7 @@ module.exports = function(server) {
     server.del('/staffs/:id_s', staff.deleteStaffById);
 
     // Get all assigned patients to the staff API
-    server.get('staffs/:id_s/patients', staff.getPatientsOfStaff);
+    server.get('/staffs/:id_s/patients', staff.getPatientsOfStaff);
 
     // Login
     server.post('/login', staff.login);
