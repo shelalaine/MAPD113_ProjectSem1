@@ -95,15 +95,7 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.prescriptions.push({
-                    date: req.params.date,
-                    medicineName: req.params.medicineName,
-                    dosage: req.params.dosage,
-                    frequency: req.params.frequency,
-                    duration: req.params.duration,
-                    prescribedByName: req.params.prescribedByName 
-                }); 
-
+                patient.prescriptions.push(req.params); 
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
@@ -123,7 +115,6 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-
                 // Push all tests 
                 for (x = 0; x < req.params.labTests.length; x++) {
                     patient.labTests.push(req.params.labTests[x]);
