@@ -123,16 +123,12 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.labTests.push({
-                    requestDate: req.params.requestDate,
-                    requestedByName: req.params.requestedByName,
-                    testType: req.params.testType,
-                    sampleTakenDate: req.params.sampleTakenDate,
-                    sampleTakenByName: req.params.sampleTakenByName,
-                    imageResult: req.params.imageResult,
-                    status: req.params.status 
-                }); 
 
+                // Push all tests 
+                for (x = 0; x < req.params.labTests.length; x++) {
+                    patient.labTests.push(req.params.labTests[x]);
+                }
+                // Save all latest tests added
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
