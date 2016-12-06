@@ -66,16 +66,7 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.vitals.push({
-                    date: req.params.date,
-                    takenByName: req.params.takenByName,
-                    systolic: req.params.systolic,
-                    diastolic: req.params.diastolic,
-                    heartRate: req.params.heartRate,
-                    temperature: req.params.temperature,
-                    respirationRate: req.params.respirationRate
-                }); 
-
+                patient.vitals.push(req.params); 
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
@@ -95,15 +86,7 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.prescriptions.push({
-                    date: req.params.date,
-                    medicineName: req.params.medicineName,
-                    dosage: req.params.dosage,
-                    frequency: req.params.frequency,
-                    duration: req.params.duration,
-                    prescribedByName: req.params.prescribedByName 
-                }); 
-
+                patient.prescriptions.push(req.params); 
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
@@ -123,16 +106,11 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.labTests.push({
-                    requestDate: req.params.requestDate,
-                    requestedByName: req.params.requestedByName,
-                    testType: req.params.testType,
-                    sampleTakenDate: req.params.sampleTakenDate,
-                    sampleTakenByName: req.params.sampleTakenByName,
-                    imageResult: req.params.imageResult,
-                    status: req.params.status 
-                }); 
-
+                // Push all tests 
+                for (x = 0; x < req.params.labTests.length; x++) {
+                    patient.labTests.push(req.params.labTests[x]);
+                }
+                // Save all latest tests added
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
@@ -295,55 +273,6 @@ function patientController() {
     }
 
     this.updatePatient = function(req, res, next){
-
-        // var patient = new Patient({
-        //     firstName: req.params.firstName, 
-        //     lastName: req.params.lastName,
-        //     birthday: req.params.birthday,
-        //     address: {
-        //         street: req.params.address.street, 
-        //         city: req.params.address.city, 
-        //         province: req.params.address.province,
-        //         zipCode: req.params.address.zipCode 
-        //     },
-        //     contact: {
-        //         phone: req.params.contact.phone,
-        //         email: req.params.contact.email, 
-        //         emergencyContactName: req.params.contact.emergencyContactName,
-        //         emergencyContactNumber: req.params.contact.emergencyContactNumber
-        //     },
-        //     gender: req.params.gender,
-        //     weight: req.params.weight,
-        //     height: req.params.height,
-        //     occupation: req.params.occupation,
-        //     bloodType: req.params.bloodType,
-        //     maritalStatus: req.params.maritalStatus,
-        //     condition: req.params.condition,
-        //     admissionDate: req.params.admissionDate,
-        //     dischargedDate: req.params.dischargedDate,
-        //     room: req.params.room,
-        //     insurance: {
-        //         name: req.params.insurance.name,
-        //         expiryDate: req.params.insurance.expiryDate
-        //     },
-        //     allergies: req.params.allergies
-        // });
-
-        //  Patient.findByIdAndRemove(req.params._id, function(err){
-        //     if (err) {
-        //         console.log(err);
-        //         return res.send({'error': err});
-        //     }
-
-        //     patient.save(function(err, patient){
-        //         if(err){
-        //             console.log(err);
-        //             return res.send(501, {'error': err});
-        //         }
-        //         return res.send(patient);
-        //     });
-        // });
-
         Patient.findByIdAndUpdate(req.params.id_p, {$set: req.params}, 
         {new: true}, function(err, patient){
             if (err) {

@@ -82,26 +82,44 @@ function staffController() {
         });
     }
 
-    //Fetch all Doctors
-    this.getDoctors = function(req, res, next){
-        Staff.find({}, function(err, staffs){
+    // Fetch staff by role
+    this.getStaffByRole = function(req, res, next) {
+        Staff.find({"role": req.params.role}, function(err, staffs){
             if (err) {
                 console.log(err);
                 return res.send({'error': err});
             }
-            if(staffs){
-                var doctors = []
-                var staff
-                for (i = 0; i < staffs.length; i++) {
-                    staff = staffs[i]
-                    if(staff.role == "doctor"){
-                        doctors.push(staff)
-                    }
-                }
-                
+            return res.send(staffs);
+        });
+    }
+
+    //Fetch all Doctors
+    this.getDoctors = function(req, res, next){
+        Staff.find({"role": "doctor"}, function(err, doctors){
+            if (err) {
+                console.log(err);
+                return res.send({'error': err});
             }
             return res.send(doctors);
         });
+        // Staff.find({}, function(err, staffs){
+        //     if (err) {
+        //         console.log(err);
+        //         return res.send({'error': err});
+        //     }
+        //     if(staffs){
+        //         var doctors = []
+        //         var staff
+        //         for (i = 0; i < staffs.length; i++) {
+        //             staff = staffs[i]
+        //             if(staff.role == "doctor"){
+        //                 doctors.push(staff)
+        //             }
+        //         }
+                
+        //     }
+        //     return res.send(doctors);
+        // });
     }
 
     //Fetch all Nurses
