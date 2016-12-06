@@ -66,16 +66,7 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.vitals.push({
-                    date: req.params.date,
-                    takenByName: req.params.takenByName,
-                    systolic: req.params.systolic,
-                    diastolic: req.params.diastolic,
-                    heartRate: req.params.heartRate,
-                    temperature: req.params.temperature,
-                    respirationRate: req.params.respirationRate
-                }); 
-
+                patient.vitals.push(req.params); 
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
