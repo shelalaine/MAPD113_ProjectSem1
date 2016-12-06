@@ -50,10 +50,13 @@ module.exports = function(server) {
     // Get all Staff API
     server.get('/staffs', staff.getStaffs);
 
+    // Get staff by Role (e.g. doctor, nurse, labTech) API
+    server.get('/staffs/:role', staff.getStaffByRole);
+
     // Get all Doctor API
     server.get('/doctors', staff.getDoctors);
 
-     // Get all Nurse API
+    // Get all Nurse API
     server.get('/nurses', staff.getNurses);
 
     // Get Staff by ID API
