@@ -43,7 +43,6 @@ module.exports = function(server) {
     // Update Patient's profile API
     server.put('/patients/:id_p', patient.updatePatient);
 
-
     // Create the Staff API
     server.post('/staffs', staff.createStaff);
 
@@ -73,4 +72,7 @@ module.exports = function(server) {
 
     // Login
     server.post('/login', staff.login);
+
+    // Login With Samsung Finger
+    server.post('/loginsamsung', staff.loginSamsung);
 };

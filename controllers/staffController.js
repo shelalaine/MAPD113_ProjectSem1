@@ -23,7 +23,7 @@ function staffController() {
                 return handleError(err);
             }
             if(staff){
-                console.log('%s %s is a %s.', staff.firstName, staff.lastName, staff.firstName) // Space Ghost is a talk show host.
+                console.log('%s %s is a %s.', staff.firstName, staff.lastName, staff.firstName) 
             }                
             return res.send(200, staff);
         })
@@ -31,7 +31,20 @@ function staffController() {
 
     //Login with username and password and return Staff object
     this.loginSamsung = function(req, res, next){
-
+            var login = new Login(req.params);
+            console.log(login);
+            if(login.fingerKey == undefined){
+                return res.send(400, {'error':'fingerKey must be supplied'});
+            }
+            Staff.findOne({ 'fingerKey': login.fingerKey }, function (err, staff) {
+            if (err){
+                return handleError(err);
+            }
+            if(staff){
+                console.log('%s %s is a %s.', staff.firstName, staff.lastName, staff.firstName) 
+            }                
+            return res.send(200, staff);
+        })
     }
 
 
