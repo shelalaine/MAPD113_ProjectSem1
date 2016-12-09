@@ -40,7 +40,8 @@ var patientSchema = new schema({
     drNotes:    [{
         date:               String,
         notes:              String,
-        diagnosedByName:    String
+        diagnosedByName:    String,
+        drId:               String
     }],
     labTests: [{
         requestDate:        String,

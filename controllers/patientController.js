@@ -98,12 +98,7 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.drNotes.push({
-                    date: req.params.date,
-                    notes: req.params.notes,
-                    diagnosedByName: req.params.diagnosedByName
-                }); 
-
+                patient.drNotes.push(req.params); 
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
