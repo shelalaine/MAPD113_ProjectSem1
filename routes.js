@@ -1,4 +1,5 @@
 module.exports = function(server) {
+    var hospital = require('./controllers/hospitalController');
     var patient = require('./controllers/patientController');
     var staff = require('./controllers/staffController');
 
@@ -6,7 +7,7 @@ module.exports = function(server) {
         return res.send("HEALTHMATIC'S PATIENT REST API");
     });
 
-
+    // PATIENT COLLECTION
     // Create the Patient API
     server.post('/patients', patient.createPatient);
 
@@ -43,6 +44,8 @@ module.exports = function(server) {
     // Update Patient's profile API
     server.put('/patients/:id_p', patient.updatePatient);
 
+  
+    // STAFF COLLECTION
     // Create the Staff API
     server.post('/staffs', staff.createStaff);
 
@@ -67,6 +70,31 @@ module.exports = function(server) {
     // Get all assigned patients to the staff API
     server.get('/staffs/:id_s/patients', staff.getPatientsOfStaff);
 
+    
+    // HOSPITAL COLLECTION
+    // Create the Hospital API
+    server.post('/hospitals', hospital.createHospital);
+
+    // Update the hospital
+    server.put('/hospitals/:id_h', hospital.updateHospital);
+
+    // Get hospital by ID API
+    server.get('/hospitals/:id_h', hospital.getHospitalById);
+
+    // Get all laboratories API
+    server.get('/hospitals/:id_h/laboratories', hospital.getLaboratories);
+
+    // Get all rooms API
+    server.get('/hospitals/:id_h/rooms', hospital.getRooms);
+
+    // Get all Hospitals API
+    server.get('/hospitals', hospital.getHospitals);
+
+    // Delete Hospital by ID API
+    server.del('/hospitals/:id_h', hospital.deleteHospitalById);
+
+
+    // LOGIN COLLECTION
     // Login
     server.post('/login', staff.login);
 

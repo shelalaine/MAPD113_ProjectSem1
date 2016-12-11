@@ -31,9 +31,15 @@ server.listen(config.port, function(){
     console.log('/staffs/:_id_s/patients');
     console.log('/staffs/:_id_s/patients/:_id_r');
     console.log('');
+    console.log('/hospitals');
+    console.log('/hospitals/:_id_h');
+    console.log('/hospitals/:_id_h/laboratories');
+    console.log('/hospitals/:_id_h/rooms');
+    console.log('');
     console.log('Where:');
     console.log(":id_p --> Patient's id");
     console.log(":id_r --> Patient record's id");
+    console.log(":id_h --> Hospital's id");
 });
 
 // Allow the use of POST
