@@ -5,6 +5,7 @@
 function patientController() {
 
     var Patient = require('../models/patient');
+    var Staff = require('../models/staff');
 
     // Create new patient
     this.createPatient = function(req, res, next){
@@ -67,11 +68,10 @@ function patientController() {
         });
     }
 
-    // Add laboratory test
-    this.addTest = function(req, res, next) {
+    // Add all laboratory tests
+    function addAllLabs(req, res) {
         Patient.findById(req.params.id_p, function(err, patient){
             if (err) {
-                console.log(err);
                 return res.send({'error': err});
             } else {
                 // Push all tests 
@@ -81,12 +81,45 @@ function patientController() {
                 // Save all latest tests added
                 patient.save(function(err, result){
                     if (err) {
-                        console.log(err);
                         return res.send({'error': err});
                     } else {
                         return res.send({"labTests": result.labTests});
                     }
                 })
+            }
+        });
+    }
+
+    // Add laboratory test
+    this.addTest = function(req, res, next) {
+        // Add this patient to patientRefs of a tech
+        Staff.findOne({'role': 'tech'}, function(err, tech){
+            if (err) {
+                return res.send({'error': err});
+            }
+
+            // Check if the patient ID already existed
+            var isFound = false;
+            for (x = 0; x < tech.patientRefs.length; x++) {
+                if (tech.patientRefs[x].patientId == req.params.id_p) {
+                    isFound = true;
+                    break;
+                }
+            }
+
+            // Check result
+            if (isFound == true) {
+                addAllLabs(req, res);
+            }  else {
+                // Add this entry to patientRefs
+                tech.patientRefs.push({'patientId': req.params.id_p, 'checkupDates': []});
+                tech.save(function(err, result){
+                    if (err) {
+                        return res.send({'error': err});
+                    }
+                    // Add all laboratory tests
+                    addAllLabs(req, res);
+                });
             }
         });
     }
