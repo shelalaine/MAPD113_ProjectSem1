@@ -95,15 +95,34 @@ function staffController() {
         });
     }
 
-    // Fetch staff by role
-    this.getStaffByRole = function(req, res, next) {
-        Staff.find({"role": req.params.role}, function(err, staffs){
-            if (err) {
-                console.log(err);
-                return res.send({'error': err});
-            }
-            return res.send(staffs);
-        });
+    // Fetch staff by role or id
+    this.getStaffByRoleOrId = function(req, res, next) {
+        switch (req.params.role_or_id) {
+            case 'doctor':
+            case 'nurse':
+            case 'admin':
+            case 'tech':
+                console.log(req.params.role_or_id);
+                Staff.find({"role": req.params.role_or_id}, function(err, staffs){
+                    if (err) {
+                        console.log(err);
+                        return res.send({'error': err});
+                    }
+                    return res.send(staffs);
+                });
+                break;
+            
+            default:
+                Staff.findById(req.params.role_or_id, function(err, staffs) {
+                    if (err) {
+                        console.log(err);
+                        return res.send({'error': err});
+                    }
+                    return res.send(staffs);
+                });
+                break;
+        }
+
     }
 
     //Fetch all Doctors
@@ -153,18 +172,6 @@ function staffController() {
                 }
             }
             return res.send(nurses);
-        });
-    }
-
-    // Fetch staff by Id
-    this.getStaffById = function(req, res, next) {
-        Staff.findById(req.params.id_s, function(err, staff){
-            if (err) {
-                console.log(err);
-                return res.send(404, {'error': err});
-            }
-
-            return res.send(staff);
         });
     }
 
