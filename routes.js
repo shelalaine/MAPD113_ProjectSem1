@@ -44,6 +44,9 @@ module.exports = function(server) {
     // Update Patient's profile API
     server.put('/patients/:id_p', patient.updatePatient);
 
+     // Update Patient Lab Test
+    server.put('/patients/:id_p/labTest', patient.updatePatientLabTest);
+
   
     // STAFF COLLECTION
     // Create the Staff API
