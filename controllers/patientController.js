@@ -151,12 +151,7 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.doctors.push({
-                    name: req.params.name,
-                    gender: req.params.gender,
-                    specialty: req.params.specialty
-                }); 
-
+                patient.doctors.push(req.params); 
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
@@ -176,12 +171,7 @@ function patientController() {
                 console.log(err);
                 return res.send({'error': err});
             } else {
-                patient.nurses.push({
-                    name: req.params.name,
-                    gender: req.params.gender,
-                    gender: req.params.gender
-                }); 
-
+                patient.nurses.push(req.params); 
                 patient.save(function(err, result){
                     if (err) {
                         console.log(err);
