@@ -271,6 +271,28 @@ function patientController() {
         
     }
 
+    this.updatePatientLabTest = function(req, res, next){
+        console.log('%s', req.params.id_p) 
+        var labTest = req.params
+        console.log('%s', labTest.id_p) 
+        console.log('%s', labTest._id)
+        Patient.findOneAndUpdate({ "_id": req.params.id_p, "labTests._id": req.params._id }, 
+            { 
+                "$set": {
+                    "labTests.$": req.params
+                }
+            },
+            {new: true},
+            function(err,patient) {
+                if (err) {
+                    console.log(err);
+                    return res.send({'error': err});
+                }
+                return res.send(201, patient);
+            }
+        );
+    }
+
     return this;
 }
 
