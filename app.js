@@ -4,6 +4,9 @@
 
 var restify = require('restify');
 var config = require('./config');
+var passport = require('passport');
+var authController = require('./controllers/auth');
+
 var server = restify.createServer({name: config.serverName, version: config.version});
 
 // Setup listener
@@ -61,5 +64,9 @@ db.on('error', function() {
 db.once('open', function dbOpen() {
     console.log('Successfully opened the database');
 });
+
+// Initialize passport
+server.use(passport.initialize()); 
+
 
 var routes = require('./routes')(server);

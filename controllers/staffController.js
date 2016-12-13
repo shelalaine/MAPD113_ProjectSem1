@@ -7,18 +7,13 @@ function staffController() {
     var Staff = require('../models/staff');
     var Login = require('../models/login');
     var Patient = require('../models/patient');
+    var authController = require('../controllers/auth');
 
     //Login with username and password and return Staff object
     this.login = function(req, res, next){
             var login = new Login(req.params);
-            console.log(login);
-            if(login.username == undefined){
-                return res.send(400, {'error':'Username must be supplied'});
-            }
-            if(login.password == undefined){
-                return res.send(400, 'Password must be supplied');
-            }
-            Staff.findOne({ 'username': login.username, 'password': login.password }, function (err, staff) {
+            console.log(req.user._id);
+            Staff.findOne({ '_id': req.user._id}, function (err, staff) {
             if (err){
                 return handleError(err);
             }
@@ -56,6 +51,12 @@ function staffController() {
         if (req.params.lastName === undefined) {
             return next(new restify.InvalidArgumentError('Last name must be supplied'));
         }
+        if (req.params.username === undefined) {
+            return next(new restify.InvalidArgumentError('Username must be supplied'));
+        }
+        if (req.params.password === undefined) {
+            return next(new restify.InvalidArgumentError('Password must be supplied'));
+        }
 
         var staff = new Staff(req.params);
 
@@ -84,15 +85,18 @@ function staffController() {
 
     // Fetch all staffs
     this.getStaffs = function(req, res, next) {
-        Staff.find({}, function(err, staffs){
-            if (err) {
-                console.log(err);
-                return res.send({'error': err});
-            }
+        console.log(authController.isAuthenticated)
+        if(authController.isAuthenticated){
+            Staff.find({}, function(err, staffs){
+                if (err) {
+                    console.log(err);
+                    return res.send({'error': err});
+                }
 
-            // return res.send({"staffs": staffs});
-            return res.send(staffs);
-        });
+                // return res.send({"staffs": staffs});
+                return res.send(staffs);
+            });
+        }
     }
 
     // Fetch staff by role or id

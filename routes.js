@@ -2,6 +2,7 @@ module.exports = function(server) {
     var hospital = require('./controllers/hospitalController');
     var patient = require('./controllers/patientController');
     var staff = require('./controllers/staffController');
+    var authController = require('./controllers/auth');
 
     server.get('/', function(req, res, next){
         return res.send("HEALTHMATIC'S PATIENT REST API");
@@ -53,7 +54,7 @@ module.exports = function(server) {
     server.post('/staffs', staff.createStaff);
 
     // Get all Staff API
-    server.get('/staffs', staff.getStaffs);
+    server.get('/staffs', authController.isAuthenticated, staff.getStaffs);
 
     // Get staff by Role (e.g. doctor, nurse, labTech) or ID API
     server.get('/staffs/:role_or_id', staff.getStaffByRoleOrId);
@@ -99,7 +100,7 @@ module.exports = function(server) {
 
     // LOGIN COLLECTION
     // Login
-    server.post('/login', staff.login);
+    server.post('/login', authController.isAuthenticated, staff.login);
 
     // Login With Samsung Finger
     server.post('/loginsamsung', staff.loginSamsung);
