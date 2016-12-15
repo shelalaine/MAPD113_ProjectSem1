@@ -90,6 +90,9 @@ module.exports = function(server) {
     // Get all rooms API
     server.get('/hospitals/:id_h/rooms', hospital.getRooms);
 
+    // Update a Room
+    server.put('/hospitals/:id_h/rooms', hospital.updateRoom);
+
     // Get all Hospitals API
     server.get('/hospitals', hospital.getHospitals);
 

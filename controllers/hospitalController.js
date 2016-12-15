@@ -84,6 +84,29 @@ function hospitalController() {
         });
     }
 
+    // Updating a Specific Room
+    this.updateRoom = function(req, res, next){
+        console.log('%s', req.params.id_h) 
+        var room = req.params
+        console.log('%s', room.id_p) 
+        console.log('%s', room._id)
+        Hospital.findOneAndUpdate({ "_id": req.params.id_h, "rooms._id": req.params._id }, 
+            { 
+                "$set": {
+                    "rooms.$": req.params
+                }
+            },
+            {new: true},
+            function(err, hospital) {
+                if (err) {
+                    console.log(err);
+                    return res.send({'error': err});
+                }
+                return res.send(201, hospital);
+            }
+        );
+    }
+
     return this;
 }
 
