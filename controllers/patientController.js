@@ -18,6 +18,7 @@ function patientController() {
 
         // Create new patient
         var patient = new Patient(req.params);
+        patient.dischargedDate = "";
         patient.save(function(err, patient){
             if (err) {
                 console.log(err);
